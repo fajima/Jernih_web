@@ -66,8 +66,8 @@ def ocr_local(image_bytes: bytes) -> str | None:
     if not TESSERACT_AVAILABLE:
         return None
     try:
-        import pytesseract
-        pytesseract.pytesseract.tesseract_cmd = TESSERACT_PATH
+        import shutil
+        pytesseract.pytesseract.tesseract_cmd = shutil.which("tesseract")
         img = Image.open(io.BytesIO(image_bytes))
         text = pytesseract.image_to_string(img, lang="eng+ind")
         text = text.strip()
